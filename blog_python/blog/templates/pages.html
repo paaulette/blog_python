@@ -62,7 +62,7 @@ s-header--opaque
             </div> <!-- end s-content__primary -->
         </article> <!-- end entry -->
 
-        {% if user.is_authenticated and user.is_admin %}
+        {% if user.is_authenticated and user.is_superuser %}
             <a class="btn btn--primary" href="{% url 'update_blog' pk=post.id %}">Editar post</a>
             <a class="btn btn--stroke" href="{% url 'delete_blog' pk=post.id %}">Borrar post</a>
         {% endif %}

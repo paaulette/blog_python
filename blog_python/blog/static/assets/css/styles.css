@@ -3857,6 +3857,20 @@ body.search-is-visible {
     font-size: 20px;
 }
 
+.s-header__search-trigger {
+    width: 200px;
+}
+
+.s-header__search-trigger img   {
+    text-align: left;
+    /* position: absolute; */
+    /* left: 0px; */
+    width: 40px;
+    top: 5px;
+    margin-right: 80px;
+    margin-top: 30px;
+}
+
 .s-header__search-trigger h5 strong {
     color: white;
     font-size: 20px;

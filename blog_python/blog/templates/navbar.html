@@ -16,7 +16,7 @@
             <li {% if 'index' in segment %} class="current" {% endif %}><a href="{% url 'index' %}" title="">Inicio</a></li>
             <li {% if 'about' in segment %} class="current" {% endif %}><a href="{% url 'about' %}" title="">Acerca de mí</a></li>
             {% if user.is_authenticated %}
-                {% if user.is_admin %}
+                {% if user.is_superuser %}
                     <li {% if 'blogpost' in segment %} class="current" {% endif %}><a href="{% url 'blogpost' %}" title="">Crear post</a></li>
                 {% endif %}
                 <li {% if 'profile' in segment %} class="current" {% endif %}><a href="{% url 'profile' %}" title="">Mi Perfil</a></li>
@@ -38,10 +38,10 @@
     {% if not user.is_authenticated %}
         <h5>Iniciar sesión</h5>
     {% else %}
-        {% if imagen_url %}
-            <img src={{ imagen_url }} style=""/>
+        {% if request.user.userextra.avatar %}
+            <img src="{{ request.user.userextra.avatar.url }}" style=""/>
         {% endif %}
-        <h5>Hola <strong>{{ user.username }}</strong></h5>
+        <h5>Hola <strong>{% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}</strong></h5>
     {% endif %}
 </a>
 

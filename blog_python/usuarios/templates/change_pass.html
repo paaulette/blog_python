@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}
-    Mi perfil
+Cambiar contraseña
 {% endblock title %}
 
 {% block slider%}
@@ -19,7 +19,7 @@
                   <div class="column">
                       <h1 class="s-hero__slide-text">
                           <a href="#0">
-                            Mi perfil
+                            Cambiar contraseña
                           </a>
                       </h1>
                   </div>
@@ -43,10 +43,10 @@
                         
                         <br>
                         <p class="lead">
-                            Si desea modificar algún dato de su perfil, por favor cambialo y guardá al finalizar.
+                            Por favor indique su nueva contraseña para que se pueda modificar.
                         </p> 
 
-                        <form name="cForm" id="cForm" class="s-content__form" method="post" action="{% url 'profile' %}" enctype="multipart/form-data">
+                        <form name="cForm" id="cForm" class="s-content__form" method="post" action="{% url 'change_pass' %}">
                             {% csrf_token %}
                             {% if form.errors %}
                             <div class="alert alert-danger">
@@ -67,8 +67,6 @@
                             </fieldset>
                         </form> <!-- end form -->
                         {{ mensaje }}
-                        
-                        <a class="btn btn--stroke" href="{% url 'change_pass' %}">Cambiar contraseña</a>
                     </div> <!-- end s-entry__page-content -->
 
                 </div> <!-- end s-content__primary -->
