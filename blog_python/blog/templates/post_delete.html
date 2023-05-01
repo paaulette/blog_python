@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Borrar post
+{% endblock title %}
+
+{% block slider%}
+<!-- hero
+    ================================================== -->
+    <section id="hero" class="s-hero">
+
+      <div class="s-hero__slider">
+
+          <div class="s-hero__slide">
+
+              <div class="s-hero__slide-bg" style="background-image: url('{% static 'assets/images/slide9-bg-3000.jpg' %}');"></div>
+
+              <div class="row s-hero__slide-content ">
+                  <div class="column">
+                      <h1 class="s-hero__slide-text">
+                          <a href="#0">
+                            Borrar post
+                          </a>
+                      </h1>
+                  </div>
+              </div>
+
+          </div> <!-- end s-hero__slide -->
+
+      </div> <!-- end s-hero__slider -->
+  </section> <!-- end s-hero -->
+{% endblock slider%}
+
+{% block content %}
+    <div class="row">
+        <div class="column large-12">
+
+            <article class="s-content__entry">
+
+                <div class="s-content__primary">
+
+                    <div class="s-content__page-content">
+                        
+                        <br>
+                        <form name="cForm" id="cForm" class="s-content__form" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <p class="lead">
+                                ¿Estás seguro que deseas borrar el post <strong>'{{object}}'</strong> ?
+                            </p>
+                            
+                            <button type="submit" class="submit btn btn--danger h-full-width">Confirmar</button>
+
+                        </form> <!-- end form -->
+                        {{ mensaje }}
+
+                    </div> <!-- end s-entry__page-content -->
+
+                </div> <!-- end s-content__primary -->
+            </article> <!-- end entry -->
+
+        </div> <!-- end column -->
+    </div> <!-- end row -->
+{% endblock content %}

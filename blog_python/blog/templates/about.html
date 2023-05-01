@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Acerca de mí
+{% endblock title %}
+
+{% block slider%}
+<!-- hero
+    ================================================== -->
+    <section id="hero" class="s-hero">
+
+      <div class="s-hero__slider">
+
+          <div class="s-hero__slide">
+
+              <div class="s-hero__slide-bg" style="background-image: url('{% static 'assets/images/slide7-bg-3000.jpg' %}');"></div>
+
+              <div class="row s-hero__slide-content ">
+                  <div class="column">
+                      <h1 class="s-hero__slide-text">
+                          <a href="#0">
+                            Acerca de mí
+                          </a>
+                      </h1>
+                  </div>
+              </div>
+
+          </div> <!-- end s-hero__slide -->
+
+      </div> <!-- end s-hero__slider -->
+  </section> <!-- end s-hero -->
+{% endblock slider%}
+
+{% block content %}
+    <div class="row">
+        <div class="column large-12">
+
+            <article class="s-content__entry">
+
+                <div class="s-content__primary">
+
+                    <div class="s-content__page-content">
+                        <p class="lead">
+                          Este espacio esta especialmente destinado para dar recomendaciones de viajes junto con experiencias vividas alrededor del mundo con el fin de ayudar a todo aquel que este organizando un viaje en un destino que no conoce.
+                        </p>
+                        <p class="lead">
+                          Me siento muy afortunada por haber podido viajar, el cual es uno de mis mayores placeres. Desde muy chica siempre supe que mi mayor deseo era poder salir a recorrer el mundo y poder conocer las diferentes culturas, historias y paisajes.
+                        </p> 
+                        <p class="lead">
+                          Cada viaje fue muy diferente, con diferentes personas y a diferentes lugares. Lo que todos tuvieron en común es lo feliz que me sentí organizando cada uno hasta el más mínimo detalle.
+                        </p>
+                        <p class="lead">
+                          Este espacio está dedicado a honrar todos esos momentos compartiendo con todos los lectores las experiencias de viaje para que puedan usar como itinerario o como inspiración para armar un diagrama de viaje a su medida.
+                        </p>
+
+                    </div> <!-- end s-entry__page-content -->
+
+                </div> <!-- end s-content__primary -->
+            </article> <!-- end entry -->
+
+        </div> <!-- end column -->
+    </div> <!-- end row -->
+{% endblock content %}

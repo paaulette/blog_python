@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    {% if object %}
+        Editar post
+    {% else %}
+        Crear post
+    {% endif %}
+{% endblock title %}
+
+{% block slider%}
+<!-- hero
+    ================================================== -->
+    <section id="hero" class="s-hero">
+
+      <div class="s-hero__slider">
+
+          <div class="s-hero__slide">
+
+              <div class="s-hero__slide-bg" style="background-image: url('{% static 'assets/images/slide8-bg-3000.jpg' %}');"></div>
+
+              <div class="row s-hero__slide-content ">
+                  <div class="column">
+                      <h1 class="s-hero__slide-text">
+                          <a href="#0">
+                            {% if object %}
+                                Editar post
+                            {% else %}
+                                Crear post
+                            {% endif %}
+                          </a>
+                      </h1>
+                  </div>
+              </div>
+
+          </div> <!-- end s-hero__slide -->
+
+      </div> <!-- end s-hero__slider -->
+  </section> <!-- end s-hero -->
+{% endblock slider%}
+
+{% block content %}
+    <div class="row">
+        <div class="column large-12">
+
+            <article class="s-content__entry">
+
+                <div class="s-content__primary">
+
+                    <div class="s-content__page-content">
+                        
+                        <br>
+                        <p class="lead">
+                            {% if object %}
+                                Por favor completar todos los campos para que editar el post del blog.
+                            {% else %}
+                                Por favor completar todos los campos para que se genere un post en el blog.
+                            {% endif %}
+                        </p> 
+
+                        <form name="cForm" id="cForm" class="s-content__form" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% if form.errors %}
+                            <div class="alert alert-danger">
+                                {% for field, errors in form.errors.items %}
+                                    <strong>{{ field|title }}:</strong>
+                                    {% for error in errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+                            <fieldset>
+                                {{ form.as_p }}
+                                <br>
+                                <button type="submit" class="submit btn btn--primary h-full-width">Confirmar</button>
+
+                            </fieldset>
+                        </form> <!-- end form -->
+                        {{ mensaje }}
+
+                    </div> <!-- end s-entry__page-content -->
+
+                </div> <!-- end s-content__primary -->
+            </article> <!-- end entry -->
+
+        </div> <!-- end column -->
+    </div> <!-- end row -->
+{% endblock content %}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Inicio
+{% endblock title %}
+
+{% block sectionClass %}
+s-content--no-top-padding
+{% endblock sectionClass %}
+
+{% block headerClass %}
+{% endblock headerClass %}
+
+{% block slider%}
+<!-- hero
+    ================================================== -->
+    <section id="hero" class="s-hero">
+
+      <div class="s-hero__slider">
+
+          <div class="s-hero__slide">
+
+              <div class="s-hero__slide-bg" style="background-image: url('{% static 'assets/images/slide4-bg-3000.jpg' %}');"></div>
+
+              <div class="row s-hero__slide-content ">
+                  <div class="column">
+                      <h1 class="s-hero__slide-text">
+                          <a href="#0">
+                              Travel blog
+                          </a>
+                      </h1>
+                  </div>
+              </div>
+
+          </div> <!-- end s-hero__slide -->
+
+      </div> <!-- end s-hero__slider -->
+  </section> <!-- end s-hero -->
+{% endblock slider%}
+
+{% block content %}
+  <div class="s-bricks">
+
+    <div class="masonry">
+      <div class="bricks-wrapper h-group">
+
+        <div class="grid-sizer"></div>
+
+        <div class="lines">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        {% if posts %}
+          {% for post in posts %}
+            <article class="brick entry" data-aos="fade-up">
+
+              <div class="entry__thumb">
+                  <a href="{% url 'blogpost' pk=post.id %}" class="thumb-link">
+                      <img src="media/{{ post.imagen }}" 
+                          srcset="media/{{ post.imagen }} 1x, media/{{ post.imagen }} 2x" alt="">
+                  </a>
+              </div> <!-- end entry__thumb -->
+
+              <div class="entry__text">
+                  <div class="entry__header">
+                    <h1 class="entry__title"><a href="{% url 'blogpost' pk=post.id %}">{{ post.titulo }}</a></h1>
+                    
+                    <div class="entry__meta">
+                      <span class="byline">Por:
+                        <span class='author'>
+                          <a href="">{{ post.autor }}</a>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="entry__excerpt">
+                    <p>
+                    {{ post.subtitulo }}
+                    </p>
+                  </div>
+                  <a class="entry__more-link" href="{% url 'blogpost' pk=post.id %}">Leer más</a>
+              </div> <!-- end entry__text -->
+          
+            </article> <!-- end article -->
+          {% endfor %}
+        {% else %}
+          <div class="s-content__entry-header">
+              <h1 class="s-content__title">No se encuentra ningún posteo.</h1>
+          </div> <!-- end s-content__entry-header -->
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}

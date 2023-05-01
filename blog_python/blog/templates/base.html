@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    {% load static %}
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Proyecto final Curso Python por Paula Barro - {% block title %}{% endblock title %}</title>
+    <meta name="description" content="Entrega del Proyecto Final del Curso de Python">
+    <meta name="author" content="Paula Barro">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+
+    <!-- script
+    ================================================== -->
+    <script src="{% static 'assets/js/modernizr.js' %}"></script>
+    <script defer src="{% static 'assets/js/fontawesome/all.min.js' %}"></script>
+
+    <!-- favicons
+    ================================================== -->
+
+</head>
+
+<body id="top">
+
+
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader"> 
+    	<div id="loader"></div>
+    </div>
+
+    <!-- header
+    ================================================== -->
+    <header class="s-header {% block headerClass %}{% endblock headerClass %}">
+        {% include 'navbar.html' %}
+    </header> <!-- end s-header -->
+
+
+    {% block slider %}{% endblock slider %}
+
+    <!-- content
+    ================================================== -->
+    <section class="s-content {% block sectionClass %}{% endblock sectionClass %}">
+        {% block content %}{% endblock content %}
+    </section> <!-- end s-content -->
+
+
+    <!-- footer
+    ================================================== -->
+    <footer class="s-footer">
+        <div class="s-footer__bottom">
+            <div class="row">
+                <div class="column">
+                    <div class="ss-copyright">
+                        <span>Creado por Paula Barro</a></span>
+                    </div> <!-- end ss-copyright -->
+                </div>
+            </div> 
+
+            <div class="ss-go-top">
+                <a class="smoothscroll" title="Ir arriba" href="#top">
+                    <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="15" height="15"><path d="M7.5 1.5l.354-.354L7.5.793l-.354.353.354.354zm-.354.354l4 4 .708-.708-4-4-.708.708zm0-.708l-4 4 .708.708 4-4-.708-.708zM7 1.5V14h1V1.5H7z" fill="currentColor"></path></svg>
+                </a>
+            </div> <!-- end ss-go-top -->
+        </div> <!-- end s-footer__bottom -->
+
+   </footer> <!-- end s-footer -->
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="{% static 'assets/js/jquery-3.5.0.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>
