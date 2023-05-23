@@ -17,12 +17,14 @@ from django import views
 from django.urls import path
 from django.views.generic.base import RedirectView
 from . import views
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('', views.inicio, name="index"),
     path('about/', views.about, name="about"),
-    path('pages/<int:pk>', views.BlogView.as_view(), name='blogpost'),
+    path('pages/<int:pk>', login_required(views.BlogView.as_view()), name='blogpost'),
     path('pages/', views.blogpost, name='blogpost'),
-    path('pages/update/<int:pk>', views.BlogUpdate.as_view(), name='update_blog'),
-    path('pages/delete/<int:pk>', views.BlogDelete.as_view(), name='delete_blog'),
+    path('pages/update/<int:pk>', login_required(views.BlogUpdate.as_view()), name='update_blog'),
+    path('pages/delete/<int:pk>', login_required(views.BlogDelete.as_view()), name='delete_blog'),
+    path('messages/', views.messaging, name='messages'),
 ]

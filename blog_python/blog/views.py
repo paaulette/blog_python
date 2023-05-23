@@ -1,14 +1,16 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
-from blog.models import BlogPost
-from .forms import BlogFormulario
+from blog.models import BlogPost, Message
+from .forms import BlogFormulario, MessageForm
 from datetime import datetime
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.http import JsonResponse
  
 # Create your views here.
 @login_required(login_url='/accounts/login/')
@@ -19,9 +21,11 @@ def inicio (request):
 
     return render(request, "index.html", context)
 
+@login_required(login_url='/accounts/login/')
 def about (request):
     return render(request, "about.html")
 
+@login_required(login_url='/accounts/login/')
 def blogpost (request):
     msg = ''
     if request.method == "POST":
@@ -88,3 +92,34 @@ class BlogUpdate(UpdateView):
     def get_success_url(self):
         return reverse_lazy('blogpost', kwargs={'pk': self.object.pk})
 
+@login_required
+def messaging(request):
+    users = User.objects.exclude(id=request.user.id)
+    selected_user = None
+    messages = None
+
+    if request.method == "POST":
+        recipient_id = request.POST.get("user_id")
+        message_content = request.POST.get("message")
+        
+        recipient = User.objects.get(id=recipient_id)
+        message = Message(sender=request.user, recipient=recipient, content=message_content)
+        message.save()
+        
+        return redirect(f"/messages/?user_id={recipient_id}")
+
+    user_id = request.GET.get("user_id")
+    if user_id:
+        selected_user = User.objects.get(id=user_id)
+        messages = Message.objects.filter(
+            (Q(sender=request.user) & Q(recipient=selected_user)) |
+            (Q(sender=selected_user) & Q(recipient=request.user))
+        ).order_by("timestamp")
+
+    context = {
+        "users": users,
+        "selected_user": selected_user,
+        "messages": messages
+    }
+
+    return render(request, "messages.html", context)

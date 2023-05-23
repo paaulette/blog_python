@@ -33,7 +33,34 @@
 
 {% block content %}
     <div class="row">
-        <div class="column large-12">
+        <div class="column large-4">
+            <div class="card card-profile">
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 order-lg-2">
+                        <div class="card-profile-image">
+                            {% if request.user.userextra.avatar %}
+                                <img src="{{ request.user.userextra.avatar.url }}" class="rounded-circle" style="max-width:300px">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h5 class="h3">
+                        {{ user.first_name }} {{ user.last_name }}
+                    </h5>
+                    <div class="h5 font-weight-300">
+                        {{ user.email }}
+                    </div>
+                    <div class="h5 mt-4">
+                        <i class="ni business_briefcase-24 mr-2"></i>{{ user.userextra.descripcion }}
+                    </div>
+                    <div>
+                        <i class="ni education_hat mr-2"></i><a href="{{ user.userextra.web }}" target="_blank">{{ user.userextra.web }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column large-8">
 
             <article class="s-content__entry">
 

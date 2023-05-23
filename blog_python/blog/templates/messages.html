@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Mensajes
+{% endblock title %}
+
+{% block slider %}
+    <!-- hero
+    ================================================== -->
+    <section id="hero" class="s-hero">
+        <div class="s-hero__slider">
+            <div class="s-hero__slide">
+                <div class="s-hero__slide-bg" style="background-image: url('{% static 'assets/images/slide11-bg-3000.jpg' %}');"></div>
+                <div class="row s-hero__slide-content">
+                    <div class="column">
+                        <h1 class="s-hero__slide-text">
+                            <a href="#0">Mensajes</a>
+                        </h1>
+                    </div>
+                </div>
+            </div> <!-- end s-hero__slide -->
+        </div> <!-- end s-hero__slider -->
+    </section> <!-- end s-hero -->
+{% endblock slider %}
+
+{% block content %}
+<div class="row">
+    <div class="column large-4">
+        <form method="post" action="{% url 'messages' %}">
+            {% csrf_token %}
+            <label for="recipient">Para:</label>
+            <select id="user-select" name="user_id" class="form-control mb-3 h-full-width">
+                <option value="">Seleccionar un usuario</option>
+                {% for user in users %}
+                    <option value="{{ user.id }}" {% if selected_user.id == user.id %}selected{% endif %}>{{ user.username }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <label for="message">Mensaje:</label>
+            <textarea name="message" id="message" rows="4" cols="50"></textarea>
+            <br>
+            <button type="submit">Enviar</button>
+        </form>
+        
+    </div>
+    {% if messages %}
+        <div class="column large-8">
+            <h2>Conversación con {{ selected_user.username }}:</h2>
+            <ul id="message-list">
+                {% for message in messages %}
+                    <li>
+                        <strong>
+                            {% if message.sender == request.user %}
+                                Yo
+                            {% else %}
+                                {{ message.sender.username }}
+                            {% endif %}
+                        </strong> ({{ message.timestamp|date:"d/m/Y H:i" }}hs): {{ message.content }}
+                    </li>
+                {% empty %}
+                    <p>No se registran mensajes con el usuario</p>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div> <!-- end row -->
+
+<script>
+    const userSelect = document.getElementById('user-select');
+    const messageList = document.getElementById('message-list');
+
+    userSelect.addEventListener('change', () => {
+        const selectedUserId = userSelect.value;
+        if (selectedUserId) {
+            window.location.href = `/messages/?user_id=${selectedUserId}`;
+        }
+    });
+
+    messageList.scrollTop = messageList.scrollHeight;
+</script>
+{% endblock content %}

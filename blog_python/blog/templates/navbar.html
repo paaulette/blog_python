@@ -20,6 +20,7 @@
                     <li {% if 'blogpost' in segment %} class="current" {% endif %}><a href="{% url 'blogpost' %}" title="">Crear post</a></li>
                 {% endif %}
                 <li {% if 'profile' in segment %} class="current" {% endif %}><a href="{% url 'profile' %}" title="">Mi Perfil</a></li>
+                <li {% if 'messages' in segment %} class="current" {% endif %}><a href="{% url 'messages' %}" title="">Mensajes</a></li>
                 <li {% if 'logout' in segment %} class="current" {% endif %}><a href="{% url 'logout' %}" title="">Desloguear</a></li>
             {% endif %}
         </ul> <!-- end s-header__nav -->

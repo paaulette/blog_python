@@ -9,6 +9,7 @@
 {% endblock title %}
 
 {% block slider%}
+<script src="{% static 'assets/js/ckeditor/ckeditor.js' %}"></script>
 <!-- hero
     ================================================== -->
     <section id="hero" class="s-hero">
@@ -87,4 +88,8 @@
 
         </div> <!-- end column -->
     </div> <!-- end row -->
+    <script>
+        CKEDITOR.replace("id_cuerpo", JSON.parse(document.querySelector("#id_cuerpo").getAttribute("data-config")));
+    </script>
+    
 {% endblock content %}
