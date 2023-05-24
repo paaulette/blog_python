@@ -6,6 +6,7 @@ from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.decorators import login_required
 from .models import UserExtra
 from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView
 
 # Create your views here.
 def login_request(request):
@@ -33,6 +34,24 @@ def login_request(request):
 
     return render(request, "login.html", {"form": form})
 
+class CustomLoginView(LoginView):
+    template_name = 'login.html'
+
+    def form_valid(self, form):
+        login(self.request, form.get_user())
+
+        UserExtra.objects.get_or_create(user=self.request.user)
+
+        return redirect(self.get_success_url())
+
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        
+        if next_url:
+            return next_url
+
+        return reverse_lazy('index')
+    
 def register (request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -68,6 +87,12 @@ def editUser (request):
 
 @login_required
 def profile (request):
+    form = UserEditForm (request.POST, request.FILES, instance=request.user)
+
+    return render(request, 'profile.html', {'form': form})
+
+@login_required
+def profile_edit (request):
     if request.method == "POST":
         form = UserEditForm (request.POST, request.FILES, instance=request.user)
 
@@ -83,9 +108,9 @@ def profile (request):
             
             mensaje = "Se han guardado los datos correctamente"
 
-            return render(request, "profile.html", {"form": form, "mensaje": mensaje})
+            return redirect('profile')
         else:
-            return render(request, 'profile.html', {'form': form})
+            return render(request, 'profile_edit.html', {'form': form})
         
     extra = {'avatar': request.user.userextra.avatar, 
              'web': request.user.userextra.web,
@@ -93,7 +118,7 @@ def profile (request):
             
     form = UserEditForm(initial=extra, instance=request.user)
 
-    return render(request, 'profile.html', {'form': form})
+    return render(request, 'profile_edit.html', {'form': form})
 
 class ChangePass(PasswordChangeView):
     template_name = 'change_pass.html'

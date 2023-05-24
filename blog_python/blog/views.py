@@ -10,7 +10,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.http import JsonResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
  
 # Create your views here.
 @login_required(login_url='/accounts/login/')
@@ -66,13 +66,18 @@ class BlogView(DetailView):
     template_name = "pages.html"
     context_object_name = "post"
 
-class BlogDelete(DeleteView):
+class BlogDelete(LoginRequiredMixin, DeleteView):
+    login_url = '/accounts/login/'
     model = BlogPost
     template_name = "post_delete.html"
 
     success_url = '/'
 
-class BlogUpdate(UpdateView):
+    def get_success_url(self):
+        return reverse_lazy('/')
+
+class BlogUpdate(LoginRequiredMixin, UpdateView):
+    login_url = '/accounts/login/'
     model = BlogPost
     form_class = BlogFormulario
     template_name = "blog_post.html"
@@ -87,7 +92,6 @@ class BlogUpdate(UpdateView):
         for field, error in errors.items():
             print(f"{field}: {error}")
         return super().form_invalid(form)
-
 
     def get_success_url(self):
         return reverse_lazy('blogpost', kwargs={'pk': self.object.pk})

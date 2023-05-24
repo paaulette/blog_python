@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block title %}
 Ver post
 {% endblock title %}
@@ -32,7 +33,7 @@ s-header--opaque
 
                     <p class="lead">{{ post.subtitulo }}</p>
 
-                    <p>{{ post.cuerpo }}</p>
+                    <div>{{ post.cuerpo | safe }}</div>
 
                 </div> <!-- end s-entry__entry-content -->
 
